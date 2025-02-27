@@ -9,11 +9,13 @@ json_file = open(json_file_path, 'r', encoding="utf-8")
 json_document = json.load(json_file)
 
 # The length of the text
-print("Plain text length: %d" % len(json_document['hits']['hits'][0]['_source']['plainText']))
+plainText = json_document['hits']['hits'][0]['_source']['plainText']
+print("Plain text length: %d" % len(plainText))
 
 for tag in (tag for tag in json_document['hits']['hits'][0]['_source']['tags'] if tag['externalName'] == 'abbr'):
     if (tag['startPosition'] >= tag['endPosition']):
-        print(tag['startPosition'])
-        # print(tag)
+        # print(tag['startPosition'])
+        print(tag)
+        print(plainText[tag['startPosition']:tag['endPosition'] + 25])
     
 json_file.close()
