@@ -1,7 +1,9 @@
 import xml.etree.ElementTree as ET
 import re
+import sys
 
-tree = ET.parse("/home/giulio/Downloads/De_Christiana_expeditione_apud_Sinas_suscepta_ab_Societate_Jesu-Mattheus_Ricci-fixes_ELA_SUPPORT_issue4.xml")
+tei_path = sys.argv[1]
+tree = ET.parse(tei_path)
 gliphs_mappings = {}
 ns = {'tei':'http://www.tei-c.org/ns/1.0','xml':'http://www.w3.org/XML/1998/namespace'}
 for char in tree.findall(".//tei:teiHeader/tei:encodingDesc/tei:charDecl/tei:char", ns):
@@ -29,7 +31,7 @@ for g in tree.findall(".//tei:g", ns):
         else:
             print(key)
 
-tree.write("/home/giulio/Downloads/De_Christiana_expeditione_apud_Sinas_suscepta_ab_Societate_Jesu-Mattheus_Ricci-fixes_ELA_SUPPORT_issue4_mapped.xml")
+tree.write(tei_path + ".corr")
 '''
 
 # quindi userò le regexp
@@ -41,7 +43,7 @@ def replace_gliph(matchobj: re.Match):
     return matchobj.group(0)
 
 
-with open("/home/giulio/Downloads/De_Christiana_expeditione_apud_Sinas_suscepta_ab_Societate_Jesu-Mattheus_Ricci-fixes_ELA_SUPPORT_issue4.xml", 'r') as f:
+with open(tei_path, 'r') as f:
    # Read the file contents into a single variable
    contents = f.read()
 
@@ -49,6 +51,6 @@ with open("/home/giulio/Downloads/De_Christiana_expeditione_apud_Sinas_suscepta_
 # Replace the whole contents
 new_contents = re.sub('<g\s+ref="(#[^"]+)"\s*/>', replace_gliph, contents, flags=re.IGNORECASE)
 
-with open("/home/giulio/Downloads/De_Christiana_expeditione_apud_Sinas_suscepta_ab_Societate_Jesu-Mattheus_Ricci-fixes_ELA_SUPPORT_issue4_mapped.xml", 'w') as f:
+with open(tei_path + ".corr", 'w') as f:
      # actually write the lines
      f.write(new_contents)
