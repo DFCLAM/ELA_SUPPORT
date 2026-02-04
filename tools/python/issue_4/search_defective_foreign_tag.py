@@ -15,7 +15,7 @@ json_document = json.load(json_file)
 plainText = json_document['_source']['plainText']
 print("Plain text length: %d" % len(plainText))
 
-for tag in (tag for tag in json_document['_source']['tags'] if tag['externalName'] == 'abbr'):
+for tag in (tag for tag in json_document['_source']['tags'] if tag['externalName'] == 'foreign'):
     if (tag['startPosition'] >= tag['endPosition']):
         # print(tag['startPosition'])
         print(tag)

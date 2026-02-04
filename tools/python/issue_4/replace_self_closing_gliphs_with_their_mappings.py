@@ -49,7 +49,7 @@ with open(tei_path, 'r') as f:
 
 
 # Replace the whole contents
-new_contents = re.sub('<g\s+ref="(#[^"]+)"\s*/>', replace_gliph, contents, flags=re.IGNORECASE)
+new_contents = re.sub(r'<g\s+ref="(#[^"]+)"\s*/>', replace_gliph, contents, flags=re.IGNORECASE)
 
 with open(tei_path + ".corr", 'w') as f:
      # actually write the lines
